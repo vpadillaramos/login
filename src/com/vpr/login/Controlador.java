@@ -16,9 +16,6 @@ public class Controlador implements ActionListener{
 		this.modelo = modelo;
 		this.vista = vista;
 		
-		
-		
-		
 		//conecto con la base de datos
 		try {
 			modelo.conectar();
@@ -28,7 +25,7 @@ public class Controlador implements ActionListener{
 		
 		//pruebo a iniciar sesion
 		ventanaLogin();
-		
+		//addListeners();
 		
 		//desconecto de la base de datos
 		try {
@@ -42,14 +39,15 @@ public class Controlador implements ActionListener{
 	//Metodos
 	private void ventanaLogin() {
 		//lanzo la ventana del login
+		
 		login = new Login();
-		addListeners();
+		
+		
 	}
 	
 	public void addListeners() {
 		login.btEntrar.addActionListener(this);
 		login.btCancelar.addActionListener(this);
-		System.out.println("HOLA");
 	}
 	
 	@Override

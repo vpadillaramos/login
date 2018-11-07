@@ -7,13 +7,17 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.vpr.login.Modelo;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Component;
 
-public class Login extends JDialog {
+public class Login extends JDialog implements ActionListener{
 
 	private final JPanel contentPanel = new JPanel();
 	public JTextField tfUsuario;
@@ -61,11 +65,13 @@ public class Login extends JDialog {
 
 		btEntrar = new JButton("Entrar");
 		btEntrar.setActionCommand("entrar");
+		btEntrar.addActionListener(this);
 		buttonPane.add(btEntrar);
 		getRootPane().setDefaultButton(btEntrar);
 
 		btCancelar = new JButton("Cancelar");
 		btCancelar.setActionCommand("cancelar");
+		btCancelar.addActionListener(this);
 		buttonPane.add(btCancelar);
 		
 		
@@ -95,5 +101,30 @@ public class Login extends JDialog {
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setModal(true); //la hago modal antes de que se cree
 		setVisible(true);
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		switch(e.getActionCommand()) {
+		case "entrar":
+			try {
+				Modelo modelo = new Modelo();
+				if(modelo.iniciarSesion(tfUsuario.getText(), tfContra.getText())) {
+					System.out.println("CONECTADO");
+					setVisible(false);
+				}
+				else
+					System.out.println("ERROR");
+				
+			} catch (SQLException sqle) {
+				sqle.printStackTrace();
+			}
+			break;
+		
+		case "cancelar":
+			setVisible(false);
+			break;
+		}
 	}
 }

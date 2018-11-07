@@ -14,9 +14,9 @@ public class Modelo {
 	private final String CONTRASENA = "damt";
 	
 	//Variables
-	private Connection conexion;
-	PreparedStatement sentencia = null;
-	ResultSet resultado = null;
+	private static Connection conexion;
+	private PreparedStatement sentencia = null;
+	private ResultSet resultado = null;
 	
 	//Metodos
 	public void conectar() throws SQLException, ClassNotFoundException {
@@ -30,7 +30,7 @@ public class Modelo {
 	
 	public boolean iniciarSesion(String usuario, String contrasena) throws SQLException {
 		
-		String sentenciaSql = "SELECT id FROM usuarios where usuario = ? " + "AND contrasena = ?";
+		String sentenciaSql = "SELECT id FROM usuarios where usuario = ? AND contrasena = ?";
 		
 		sentencia = conexion.prepareStatement(sentenciaSql);
 		sentencia.setString(1, usuario);
